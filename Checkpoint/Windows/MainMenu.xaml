@@ -1,0 +1,83 @@
+﻿<Window x:Class="Checkpoint.Windows.MainMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Checkpoint.Windows"
+        mc:Ignorable="d"
+        Title="MainMenu" Height="800" Width="1200" WindowStartupLocation="CenterScreen"
+        MinHeight="800" MaxHeight="800" MaxWidth="1200" MinWidth="1200"
+        WindowStyle="None" 
+        ResizeMode="NoResize"
+        AllowsTransparency="True" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.05*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.ColumnSpan="3" Background="#252525" MouseDown="Border_MouseDown">
+            <Grid HorizontalAlignment="Stretch">
+                <Label Content="Checkpoint Admin Panel"
+                       Foreground="Gray"
+                       FontStyle="Italic"/>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Width="20" Height="20" Background="Transparent" Content="_"
+                            Foreground="Gray" BorderThickness="0" FontWeight="Bold" 
+                            Margin="0 0 0 2" Click="ButtonMinimaze_Click"/>
+                    <!--<Button Width="20" Height="20" Background="Transparent" Content="◻"
+                            Foreground="Gray" FontSize="15" BorderThickness="0" Click="ButtonMaximazed_Click"
+                            FontWeight="Bold" VerticalContentAlignment="Center" Margin="0 0 0 2"/>-->
+                    <Button Width="20" Height="20" Background="Transparent" Content="✕"
+                            Foreground="Gray" BorderThickness="0" FontWeight="Bold" Click="ButtonClose_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+
+        <Frame Name="MainFrame" Grid.Row="2" Grid.Column="1"/>
+
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+            <Button Name="btnEmployeePage" 
+                    Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
+                    Click="btnEmployeePage_Click"/>
+            <Button Name="btnOfficePage" 
+                    Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
+                    Click="btnOfficePage_Click"/>
+            <Button Name="btnCheckpointPage" 
+                    Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
+                    Click="btnCheckpointPage_Click"/>
+            <Button Name="btnPrivaceSettingsPage" 
+                    Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
+                    Click="btnPrivaceSettingsPage_Click"/>
+        </StackPanel>
+
+        <TextBlock Name="tbTime" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" FontSize="17"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <TextBox x:Name="tbSearch" Width="800" Height="50" 
+                     Margin="30 0 0 0" Text="Введите запрос"
+                     Foreground="#3AB19B" Style="{StaticResource SearchTextBoxStyle}"
+                     TextAlignment="Left"/>
+            <Button Content="Найти" Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
+                     />
+            <ListView x:Name="resultsListView" />
+        </StackPanel>
+
+        <Button Width="50" Height="50" Grid.Row="1" Grid.Column="3" BorderThickness="0"
+                >
+            <Button.Background>
+                <ImageBrush ImageSource="/Images/UserPic.png" />
+            </Button.Background>
+        </Button>
+    </Grid>
+</Window>
