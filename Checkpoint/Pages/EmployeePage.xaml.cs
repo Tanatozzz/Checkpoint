@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Checkpoint.Singletons;
 
 namespace Checkpoint.Pages
 {
@@ -23,6 +24,7 @@ namespace Checkpoint.Pages
         public EmployeePage()
         {
             InitializeComponent();
+            EmployeeLV.ItemsSource = AllEmployeesSingleton.Instance.Employees;
         }
     }
 }

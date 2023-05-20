@@ -43,10 +43,12 @@
         </Border>
 
 
-        <Frame Name="MainFrame" Grid.Row="2" Grid.Column="1"/>
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden"
+               Grid.Row="2" Grid.Column="1"/>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-            <Button Name="btnEmployeePage" 
+            <Button Name="btnEmployeePage"
+                    Content="Список сотрудников"
                     Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
                     Click="btnEmployeePage_Click"/>
             <Button Name="btnOfficePage" 
@@ -73,8 +75,8 @@
             <ListView x:Name="resultsListView" />
         </StackPanel>
 
-        <Button Width="50" Height="50" Grid.Row="1" Grid.Column="3" BorderThickness="0"
-                >
+        <Button Name="btnProfile" Width="50" Height="50" Grid.Row="1" Grid.Column="3" BorderThickness="0"
+                Click="btnProfile_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Images/UserPic.png" />
             </Button.Background>

@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:Checkpoint"
         mc:Ignorable="d"
         Title="Авторизация" Height="500" 
-        Width="400">
+        Width="400"
+        WindowStyle="None" 
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*" />
@@ -18,7 +21,6 @@
         <Border Background="#FFFFFF" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown">
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Text="Авторизация" Foreground="#3AB19B" Style="{StaticResource TitleText}" />
-
                 <Border BorderBrush="#ACB0AF" BorderThickness="1" Margin="70 7" CornerRadius="5">
                     <Grid Margin="7 9">
                         <Grid.ColumnDefinitions>

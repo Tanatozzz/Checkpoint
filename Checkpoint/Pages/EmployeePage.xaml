@@ -9,7 +9,7 @@
       Title="EmployeePage">
 
     <Grid>
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        <ListView Name="EmployeeLV" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -38,17 +38,17 @@
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <Image x:Name="PhotoStaff"
+                            <!--<Image x:Name="PhotoStaff"
                                    Grid.RowSpan="3"  
                                    Margin="10">
                                 <Image.Source>
                                     <Binding Path="Image">
                                         <Binding.TargetNullValue>
-                                            <ImageSource>/Images/UserPic.png</ImageSource>
+                                            <ImageSource>/Checkpoint;component/Images/Email.png</ImageSource>
                                         </Binding.TargetNullValue>
                                     </Binding>
                                 </Image.Source>
-                            </Image>
+                            </Image>-->
 
                             <TextBlock
                     Text="ID: "
@@ -71,7 +71,7 @@
                     Grid.Row="0"
                     />
                             <TextBlock
-                    Text="{Binding Salary}"
+                    Text="{Binding RoleTitle}"
                     FontSize="18"
                     Foreground="AntiqueWhite"
                     VerticalAlignment="Center"
@@ -103,7 +103,7 @@
                     />
 
                             <TextBlock
-                    Text="{Binding MiddleName}"
+                    Text="{Binding Patronomyc}"
                     FontSize="18"
                     Foreground="AntiqueWhite"
                     VerticalAlignment="Center"

@@ -38,6 +38,9 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -160,7 +163,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EmployeeWithRoleName.cs" />
+    <Compile Include="Models\HttpEmployee.cs" />
     <Compile Include="Pages\CheckpointPage.xaml.cs">
       <DependentUpon>CheckpointPage.xaml</DependentUpon>
     </Compile>
@@ -173,6 +177,8 @@
     <Compile Include="Pages\PrivacySettingPage.xaml.cs">
       <DependentUpon>PrivacySettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Singletons\AllEmployeeSingleton.cs" />
+    <Compile Include="Singletons\EmployeeSingleton.cs" />
     <Compile Include="Windows\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>

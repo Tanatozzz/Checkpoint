@@ -1,7 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Checkpoint.API;
+using Checkpoint.Models;
+using Checkpoint.Singletons;
 using Checkpoint.Windows;
+using Employee = Checkpoint.Models;
 
 namespace Checkpoint
 {
@@ -58,12 +61,12 @@ namespace Checkpoint
             }
 
             HttpQuery loginManager = new HttpQuery();
-            bool loginResult = await loginManager.Login(username, password);
+            HttpEmployee loggedInEmployee = await loginManager.Login(username, password);
 
-            if (loginResult)
+            if (loggedInEmployee != null)
             {
-                // Вход выполнен успешно
-                MessageBox.Show("Вход выполнен успешно!");
+                // Открываем главное окно
+                EmployeeSingleton.Instance.Employee = loggedInEmployee;
                 var mainWindow = new MainMenu();
                 mainWindow.Show();
                 this.Close();

@@ -13,6 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Checkpoint.Pages;
+using Checkpoint.Singletons;
+using Checkpoint.API;
+using Checkpoint.Models;
+using System.Net.PeerToPeer;
 
 
 // MinHeight="800" MaxHeight="800" MaxWidth="1200" MinWidth="1200"
@@ -84,9 +88,14 @@ namespace Checkpoint.Windows
             Application.Current.Shutdown();
         }
 
-        private void btnEmployeePage_Click(object sender, RoutedEventArgs e)
+        private async void btnEmployeePage_Click(object sender, RoutedEventArgs e)
         {
+            HttpQuery httpManager = new HttpQuery();
+            var allEmployees = await httpManager.GetAllEmployees();
+            AllEmployeesSingleton.Instance.Employees = allEmployees;
+            var page = new EmployeePage();
 
+            MainFrame.Content = page;
         }
 
         private void btnOfficePage_Click(object sender, RoutedEventArgs e)
@@ -102,6 +111,29 @@ namespace Checkpoint.Windows
         private void btnPrivaceSettingsPage_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        {
+            Employee employee = EmployeeSingleton.Instance.Employee; // Получаем экземпляр класса Employee из синглтона
+
+            // Создаем строку с данными из синглтона
+            string message = $"ID: {employee.ID}\n" +
+                             $"First Name: {employee.FirstName}\n" +
+                             $"Patronomyc: {employee.Patronomyc}\n" +
+                             $"Last Name: {employee.LastName}\n" +
+                             $"Last Visit Date: {employee.LastVisitDate}\n" +
+                             $"Is Inside: {employee.isInside}\n" +
+                             $"ID Role: {employee.IDRole}\n" +
+                             $"ID Addition Access: {employee.IDAdditionAccess}\n" +
+                             $"Passport Series: {employee.PassportSeries}\n" +
+                             $"Passport Number: {employee.PassportNumber}\n" +
+                             $"INN: {employee.INN}\n" +
+                             $"Login: {employee.Login}\n" +
+                             $"Password: {employee.Password}";
+
+            // Отображаем всплывающее оповещение с данными из синглтона
+            MessageBox.Show(message, "Employee Profile", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
     }
