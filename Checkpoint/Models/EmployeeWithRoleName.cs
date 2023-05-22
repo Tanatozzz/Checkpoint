@@ -10,5 +10,6 @@ namespace Checkpoint.Models
     public class EmployeeWithRoleName : Employee
     {
         public string RoleTitle { get; set; }
+        public bool IsCurrentEmployee { get; set; }
     }
 }

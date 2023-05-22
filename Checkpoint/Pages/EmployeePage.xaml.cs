@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,18 +14,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Checkpoint.Singletons;
+using Checkpoint.Converters;
 
 namespace Checkpoint.Pages
 {
-    /// <summary>
-    /// Interaction logic for EmployeePage.xaml
-    /// </summary>
     public partial class EmployeePage : Page
     {
         public EmployeePage()
         {
             InitializeComponent();
-            EmployeeLV.ItemsSource = AllEmployeesSingleton.Instance.Employees;
+
+            var allEmployees = AllEmployeesSingleton.Instance.Employees;
+            var currentEmployee = EmployeeSingleton.Instance.Employee;
+
+            foreach (var employee in allEmployees)
+            {
+                employee.IsCurrentEmployee = (employee.ID == currentEmployee.ID);
+            }
+
+            EmployeeLV.ItemsSource = allEmployees;
         }
     }
 }

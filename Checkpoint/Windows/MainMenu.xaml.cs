@@ -17,9 +17,7 @@ using Checkpoint.Singletons;
 using Checkpoint.API;
 using Checkpoint.Models;
 using System.Net.PeerToPeer;
-
-
-// MinHeight="800" MaxHeight="800" MaxWidth="1200" MinWidth="1200"
+using Checkpoint.Classes;
 
 namespace Checkpoint.Windows
 {
@@ -28,6 +26,7 @@ namespace Checkpoint.Windows
     /// </summary>
     public partial class MainMenu : Window
     {
+        UpdateData up = new UpdateData();
         public MainMenu()
         {
             InitializeComponent();
@@ -90,9 +89,7 @@ namespace Checkpoint.Windows
 
         private async void btnEmployeePage_Click(object sender, RoutedEventArgs e)
         {
-            HttpQuery httpManager = new HttpQuery();
-            var allEmployees = await httpManager.GetAllEmployees();
-            AllEmployeesSingleton.Instance.Employees = allEmployees;
+            up.Update();
             var page = new EmployeePage();
 
             MainFrame.Content = page;
@@ -100,9 +97,7 @@ namespace Checkpoint.Windows
 
         private async void btnOfficePage_Click(object sender, RoutedEventArgs e)
         {
-            HttpQuery httpManager = new HttpQuery();
-            var allOffices = await httpManager.GetAllOffices();
-            AllOfficesSingleton.Instance.Offices = allOffices;
+            up.Update();
             var page = new OfficePage();
 
             MainFrame.Content = page;
@@ -110,17 +105,18 @@ namespace Checkpoint.Windows
 
         private async void btnCheckpointPage_Click(object sender, RoutedEventArgs e)
         {
-            HttpQuery httpManager = new HttpQuery();
-            var allCheckpoint = await httpManager.GetAllCheckpoints();
-            AllCheckpointsSingleton.Instance.Checkpoints = allCheckpoint;
+            up.Update();
             var page = new CheckpointPage();
 
             MainFrame.Content = page;
         }
 
-        private void btnPrivaceSettingsPage_Click(object sender, RoutedEventArgs e)
+        private async void btnPrivaceSettingsPage_Click(object sender, RoutedEventArgs e)
         {
+            up.Update();
+            var page = new PrivacySettingPage();
 
+            MainFrame.Content = page;
         }
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
@@ -145,6 +141,5 @@ namespace Checkpoint.Windows
             // Отображаем всплывающее оповещение с данными из синглтона
             MessageBox.Show(message, "Employee Profile", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
     }
 }

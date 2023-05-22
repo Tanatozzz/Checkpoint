@@ -57,7 +57,7 @@
             <Button Name="btnCheckpointPage" Content="Список терминалов"
                     Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
                     Click="btnCheckpointPage_Click"/>
-            <Button Name="btnPrivaceSettingsPage" 
+            <Button Name="btnPrivaceSettingsPage" Content="Изменение прав"
                     Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
                     Click="btnPrivaceSettingsPage_Click"/>
         </StackPanel>

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Checkpoint.Singletons;
 
 namespace Checkpoint.Models
 {
-    public class CheckpointWithOfficeName : Checkpointt
+    public class RightsList
     {
-        public string OfficeTitle { get; set; }
+        public string TerminalID { get; set; }
+        public bool HasAccess { get; set; }
     }
 }

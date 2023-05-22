@@ -1,0 +1,30 @@
+﻿<Window x:Class="Checkpoint.Windows.AccessWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Checkpoint.Windows"
+        mc:Ignorable="d"
+        Title="AccessWindow" Height="450" Width="600">
+    <Grid>
+        <ListView Name="CheckpointRoleLV" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn x:Name="IDCol" Header="ID" DisplayMemberBinding="{Binding CheckpointID}"/>
+                    <GridViewColumn x:Name="TitleCol" Header="Title" DisplayMemberBinding="{Binding CheckpointTitle}"/>
+                    <GridViewColumn Header="Actions">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Width="80" Height="30" Content="Удалить" Tag="{Binding}" Click="DeleteAccessButton_Click"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Width="80" Height="30" Content="Добавить" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Click="AddAccessButton_Click"/>
+    </Grid>
+</Window>

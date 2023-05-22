@@ -7,7 +7,7 @@ using Checkpoint.Models;
 
 namespace Checkpoint.Singletons
 {
-    public class Checkpoint_
+    public class Checkpointt
     {
         public int ID { get; set; }
         public string Title { get; set; }
