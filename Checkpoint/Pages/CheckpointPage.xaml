@@ -9,6 +9,6 @@
       Title="CheckpointPage">
 
     <Grid>
-        
+        <ListView Name="CheckpointLV"/>
     </Grid>
 </Page>

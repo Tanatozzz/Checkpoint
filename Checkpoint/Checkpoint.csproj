@@ -163,8 +163,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\CheckpointWithOfficeName.cs" />
     <Compile Include="Models\EmployeeWithRoleName.cs" />
     <Compile Include="Models\HttpEmployee.cs" />
+    <Compile Include="Models\OfficeWithCityName.cs" />
     <Compile Include="Pages\CheckpointPage.xaml.cs">
       <DependentUpon>CheckpointPage.xaml</DependentUpon>
     </Compile>
@@ -177,7 +179,9 @@
     <Compile Include="Pages\PrivacySettingPage.xaml.cs">
       <DependentUpon>PrivacySettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Singletons\AllCheckpointSingleton.cs" />
     <Compile Include="Singletons\AllEmployeeSingleton.cs" />
+    <Compile Include="Singletons\AllOfficeSingleton.cs" />
     <Compile Include="Singletons\EmployeeSingleton.cs" />
     <Compile Include="Windows\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>

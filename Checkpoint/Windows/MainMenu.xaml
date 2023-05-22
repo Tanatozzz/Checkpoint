@@ -51,10 +51,10 @@
                     Content="Список сотрудников"
                     Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
                     Click="btnEmployeePage_Click"/>
-            <Button Name="btnOfficePage" 
+            <Button Name="btnOfficePage"  Content="Список офисов"
                     Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
                     Click="btnOfficePage_Click"/>
-            <Button Name="btnCheckpointPage" 
+            <Button Name="btnCheckpointPage" Content="Список терминалов"
                     Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
                     Click="btnCheckpointPage_Click"/>
             <Button Name="btnPrivaceSettingsPage" 

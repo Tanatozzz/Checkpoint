@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Checkpoint.Models;
+using Checkpoint.Singletons;
 
 namespace Checkpoint.API
 {
@@ -62,6 +63,38 @@ namespace Checkpoint.API
             else
             {
                 // Обработка ошибки
+                throw new Exception($"Ошибка при выполнении запроса: {response.StatusCode}");
+            }
+        }
+
+        public async Task<List<OfficeWithCityName>> GetAllOffices()
+        {
+            var response = await _httpClient.GetAsync("Office_DataList");
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Получаем список всех офисов
+                var offices = await response.Content.ReadAsAsync<List<OfficeWithCityName>>();
+                return offices;
+            }
+            else
+            {
+                // Обработка ошибки
+                throw new Exception($"Ошибка при выполнении запроса: {response.StatusCode}");
+            }
+        }
+
+        public async Task<List<CheckpointWithOfficeName>> GetAllCheckpoints()
+        {
+            var response = await _httpClient.GetAsync("Checkpoint_DataList");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var checkpoints = await response.Content.ReadAsAsync<List<CheckpointWithOfficeName>>();
+                return checkpoints;
+            }
+            else
+            {
                 throw new Exception($"Ошибка при выполнении запроса: {response.StatusCode}");
             }
         }

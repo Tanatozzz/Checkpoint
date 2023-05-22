@@ -98,14 +98,24 @@ namespace Checkpoint.Windows
             MainFrame.Content = page;
         }
 
-        private void btnOfficePage_Click(object sender, RoutedEventArgs e)
+        private async void btnOfficePage_Click(object sender, RoutedEventArgs e)
         {
+            HttpQuery httpManager = new HttpQuery();
+            var allOffices = await httpManager.GetAllOffices();
+            AllOfficesSingleton.Instance.Offices = allOffices;
+            var page = new OfficePage();
 
+            MainFrame.Content = page;
         }
 
-        private void btnCheckpointPage_Click(object sender, RoutedEventArgs e)
+        private async void btnCheckpointPage_Click(object sender, RoutedEventArgs e)
         {
+            HttpQuery httpManager = new HttpQuery();
+            var allCheckpoint = await httpManager.GetAllCheckpoints();
+            AllCheckpointsSingleton.Instance.Checkpoints = allCheckpoint;
+            var page = new CheckpointPage();
 
+            MainFrame.Content = page;
         }
 
         private void btnPrivaceSettingsPage_Click(object sender, RoutedEventArgs e)

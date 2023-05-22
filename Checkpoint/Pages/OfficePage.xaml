@@ -9,6 +9,6 @@
       Title="OfficePage">
 
     <Grid>
-        
+        <ListView Name="OfficeLV"/>
     </Grid>
 </Page>
