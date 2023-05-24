@@ -29,6 +29,26 @@ namespace Checkpoint.Pages
         {
             InitializeComponent();
             RoleLV.ItemsSource = AllRoleSingleton.Instance.Roles;
+            EmployeeLV.ItemsSource = AllEmployeesSingleton.Instance.Employees;
+        }
+        private void RoleLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedRole = RoleLV.SelectedItem as Role;
+            if (selectedRole != null)
+            {
+                var accessWindow = new AccessWindow(selectedRole);
+                accessWindow.ShowDialog();
+            }
+        }
+
+        private void EmployeeLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedEmployee = EmployeeLV.SelectedItem as Employee;
+            if (selectedEmployee != null)
+            {
+                var employeeAccessWindow = new AccessWindow(selectedEmployee);
+                employeeAccessWindow.ShowDialog();
+            }
         }
 
         private void ChangeAccessButton_Click(object sender, RoutedEventArgs e)
@@ -37,6 +57,16 @@ namespace Checkpoint.Pages
             if (role != null)
             {
                 var accessWindow = new AccessWindow(role);
+                accessWindow.ShowDialog();
+            }
+        }
+
+        private void ChangeAccessEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            var employee = (sender as FrameworkElement)?.DataContext as Employee;
+            if (employee != null)
+            {
+                var accessWindow = new AccessWindow(employee);
                 accessWindow.ShowDialog();
             }
         }

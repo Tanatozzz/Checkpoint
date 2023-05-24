@@ -132,13 +132,13 @@ namespace Checkpoint.API
             }
         }
 
-        public async Task<List<CheckpointAdditionalAccess>> GetAllCheckpointAdditionalAccess()
+        public async Task<List<CheckpointAdditionalAccessWithTitleID>> GetAllCheckpointAdditionalAccess()
         {
             var response = await _httpClient.GetAsync("CheckpointAdditionalAccess_DataList");
 
             if (response.IsSuccessStatusCode)
             {
-                var checkpointadditionalaccesses = await response.Content.ReadAsAsync<List<CheckpointAdditionalAccess>>();
+                var checkpointadditionalaccesses = await response.Content.ReadAsAsync<List<CheckpointAdditionalAccessWithTitleID>>();
                 return checkpointadditionalaccesses;
             }
             else
@@ -164,6 +164,29 @@ namespace Checkpoint.API
         public async Task DeleteCheckpointRole(int IDRole, int IDCheckpoint)
         {
             var url = $"DeleteCheckpointRole?IDRole={IDRole}&IDCheckpoint={IDCheckpoint}";
+
+            var response = await _httpClient.DeleteAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Запись успешно удалена
+                Console.WriteLine("Запись успешно удалена из таблицы CheckpointRole.");
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                // Запись не найдена
+                Console.WriteLine("Запись не найдена в таблице CheckpointRole.");
+            }
+            else
+            {
+                // При удалении возникла ошибка
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Ошибка при удалении записи: {errorMessage}");
+            }
+        }
+        public async Task DeleteCheckpointAdditionalAccess(int IDAdditionalAccess, int IDCheckpoint)
+        {
+            var url = $"DeleteCheckpointAdditionalAccess?IDRole={IDAdditionalAccess}&IDCheckpoint={IDCheckpoint}";
 
             var response = await _httpClient.DeleteAsync(url);
 
@@ -211,6 +234,128 @@ namespace Checkpoint.API
             catch (Exception ex)
             {
                 MessageBox.Show("Произошла ошибка отправки запроса на сервер. Обратитесь к администратору системы.", ex.ToString());
+                return false;
+            }
+        }
+        public async Task<bool> AddCheckpointAdditionalAccess(int IDAdditionalAccess, int IDCheckpoint)
+        {
+            try
+            {
+                var url = $"AddCheckpointAdditionalAccess?IDAdditionalAccess={IDAdditionalAccess}&IDCheckpoint={IDCheckpoint}";
+
+                var response = await _httpClient.PostAsJsonAsync(url, "");
+                var requestData = new { IDAdditionalAccess = IDAdditionalAccess, IDCheckpoint = IDCheckpoint };
+                if (response.IsSuccessStatusCode)
+                {
+                    // Вход выполнен успешно, получаем информацию о сотруднике
+                    return true;
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    // Ошибка аутентификации
+                    return false;
+                }
+                else
+                {
+                    // Обработка других ошибок, если необходимо
+                    throw new Exception($"Ошибка при выполнении запроса: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка отправки запроса на сервер. Обратитесь к администратору системы.", ex.ToString());
+                return false;
+            }
+        }
+        public async Task<bool> AddEmployee(Employee newEmployee)
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync("AddEmployee", newEmployee);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Работник успешно добавлен
+                    return true;
+                }
+                else
+                {
+                    // Обработка ошибки при добавлении работника
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Ошибка при добавлении работника: {errorMessage}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Произошла ошибка при отправке запроса на сервер. Обратитесь к администратору системы.");
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteEmployee(int employeeId)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"DeleteEmployee/{employeeId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Работник успешно удален
+                    return true;
+                }
+                else if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    // Работник не найден
+                    Console.WriteLine("Работник не найден.");
+                    return false;
+                }
+                else
+                {
+                    // Обработка ошибки при удалении работника
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Ошибка при удалении работника: {errorMessage}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Произошла ошибка при отправке запроса на сервер. Обратитесь к администратору системы.");
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateEmployee(Employee updatedEmployee)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync($"UpdateEmployee/{updatedEmployee.ID}", updatedEmployee);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Данные о сотруднике успешно обновлены
+                    return true;
+                }
+                else if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    // Сотрудник не найден
+                    Console.WriteLine("Сотрудник не найден.");
+                    return false;
+                }
+                else
+                {
+                    // Обработка ошибки при обновлении данных о сотруднике
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Ошибка при обновлении данных о сотруднике: {errorMessage}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Произошла ошибка при отправке запроса на сервер. Обратитесь к администратору системы.");
+                Console.WriteLine(ex.ToString());
                 return false;
             }
         }

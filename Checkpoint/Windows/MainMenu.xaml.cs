@@ -89,34 +89,70 @@ namespace Checkpoint.Windows
 
         private async void btnEmployeePage_Click(object sender, RoutedEventArgs e)
         {
-            up.Update();
-            var page = new EmployeePage();
+            bool dataLoaded = await up.Update();
 
-            MainFrame.Content = page;
+            if (dataLoaded)
+            {
+                var page = new EmployeePage();
+
+                MainFrame.Content = page;
+            }
+            else
+            {
+                MessageBox.Show("Ошибка при обновлении данных", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private async void btnOfficePage_Click(object sender, RoutedEventArgs e)
         {
-            up.Update();
-            var page = new OfficePage();
+            bool dataLoaded = await up.Update();
 
-            MainFrame.Content = page;
+            if (dataLoaded)
+            {
+                var page = new OfficePage();
+
+                MainFrame.Content = page;
+            }
+            else
+            {
+                MessageBox.Show("Ошибка при обновлении данных", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private async void btnCheckpointPage_Click(object sender, RoutedEventArgs e)
         {
-            up.Update();
-            var page = new CheckpointPage();
+            bool dataLoaded = await up.Update();
 
-            MainFrame.Content = page;
+            if (dataLoaded)
+            {
+                var page = new CheckpointPage();
+
+                MainFrame.Content = page;
+            }
+            else
+            {
+                MessageBox.Show("Ошибка при обновлении данных", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private async void btnPrivaceSettingsPage_Click(object sender, RoutedEventArgs e)
         {
-            up.Update();
-            var page = new PrivacySettingPage();
+            bool dataLoaded = await up.Update();
 
-            MainFrame.Content = page;
+            if (dataLoaded)
+            {
+                var page = new PrivacySettingPage();
+
+                MainFrame.Content = page;
+            }
+            else
+            {
+                MessageBox.Show("Ошибка при обновлении данных", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)

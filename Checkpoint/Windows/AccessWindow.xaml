@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Checkpoint.Windows"
         mc:Ignorable="d"
-        Title="AccessWindow" Height="450" Width="600">
+        Title="AccessWindow" Height="450" Width="600" WindowStartupLocation="CenterScreen">
     <Grid>
         <ListView Name="CheckpointRoleLV" Margin="10">
             <ListView.View>

@@ -154,6 +154,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\AddAccessWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,6 +178,7 @@
     <Compile Include="Classes\UpdateData.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\EmployeeBackgroundConverter.cs" />
+    <Compile Include="Models\CheckpointAdditionalAccessWithTitleID.cs" />
     <Compile Include="Models\CheckpointRoleWithTitleID.cs" />
     <Compile Include="Models\CheckpointWithOfficeName.cs" />
     <Compile Include="Models\EmployeeWithRoleName.cs" />
@@ -199,6 +208,12 @@
     <Compile Include="ViewModels\AccessManagementViewModel.cs" />
     <Compile Include="Windows\AccessWindow.xaml.cs">
       <DependentUpon>AccessWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddAccessWindow.xaml.cs">
+      <DependentUpon>AddAccessWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddEmployeeWindow.xaml.cs">
+      <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>

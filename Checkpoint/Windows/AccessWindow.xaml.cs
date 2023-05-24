@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Checkpoint.Classes;
+using System.Data;
 
 namespace Checkpoint.Windows
 {
@@ -24,32 +25,53 @@ namespace Checkpoint.Windows
     public partial class AccessWindow : Window
     {
         UpdateData up = new UpdateData();
-        private Role role;
-        public AccessWindow(Role role)
+        private object target;
+        public AccessWindow(object target)
         {
             InitializeComponent();
-            this.role = role;
-            // Получить доступные проходы для указанной роли из синглтона
-            var checkpointRoles = AllCheckpointRoleSingleton.Instance.CheckpointRoles.Where(i => i.IDRole == role.ID);
-
-            // Установить источник данных для ListView
-            CheckpointRoleLV.ItemsSource = checkpointRoles;
+            this.target = target;
+            UpdateData();
         }
-        private void DeleteAccessButton_Click(object sender, RoutedEventArgs e)
+
+        private async void UpdateData() {
+            up.Update();
+            if (target is Role role)
+            {
+                var checkpointRoles = AllCheckpointRoleSingleton.Instance.CheckpointRoles.Where(i => i.IDRole == role.ID);
+                CheckpointRoleLV.ItemsSource = checkpointRoles;
+            }
+            else if (target is Employee employee)
+            {
+                var checkpointAccesses = AllCheckpointAdditionalAccessSingleton.Instance.CheckpointAdditionalAccesses.Where(i => i.IDAdditionalAccess == employee.IDAdditionAccess);
+                CheckpointRoleLV.ItemsSource = checkpointAccesses;
+            }
+        }
+        private async void DeleteAccessButton_Click(object sender, RoutedEventArgs e)
         {
-            // Логика удаления доступа
             Button button = (Button)sender;
             CheckpointRole checkpointRole = (CheckpointRole)button.Tag;
-            int roleID = role.ID;
             int checkpointID = checkpointRole.IDCheckpoint;
             HttpQuery httpmanager = new HttpQuery();
-            httpmanager.DeleteCheckpointRole(roleID, checkpointID);
-            up.Update();
-
+            if (target is Role role)
+            {
+                await httpmanager.DeleteCheckpointRole(role.ID, checkpointID);
+            }
+            else if (target is Employee employee)
+            {
+                await httpmanager.DeleteCheckpointAdditionalAccess(employee.IDAdditionAccess, checkpointID);
+            }
+            else
+            {
+                // Обработка неподдерживаемого типа
+                throw new ArgumentException("Неподдерживаемый тип объекта");
+            }
+            UpdateData();
         }
 
         private void AddAccessButton_Click(object sender, RoutedEventArgs e)
         {
+            var addaccessWindow = new AddAccessWindow(target);
+            addaccessWindow.ShowDialog();
             // Логика добавления нового доступа
         }
     }

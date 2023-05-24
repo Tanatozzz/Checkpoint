@@ -15,6 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Checkpoint.Singletons;
 using Checkpoint.Converters;
+using Checkpoint.API;
+using Checkpoint.Windows;
+using Checkpoint.Classes;
 
 namespace Checkpoint.Pages
 {
@@ -23,7 +26,7 @@ namespace Checkpoint.Pages
         public EmployeePage()
         {
             InitializeComponent();
-
+            UpdateData updateData = new UpdateData();
             var allEmployees = AllEmployeesSingleton.Instance.Employees;
             var currentEmployee = EmployeeSingleton.Instance.Employee;
 
@@ -32,7 +35,24 @@ namespace Checkpoint.Pages
                 employee.IsCurrentEmployee = (employee.ID == currentEmployee.ID);
             }
 
+            DataRefresh();
+        }
+
+        private async void DataRefresh()
+        {
+            var allEmployees = AllEmployeesSingleton.Instance.Employees;
             EmployeeLV.ItemsSource = allEmployees;
+        }
+        private void AddEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            var addEmployeeWindow = new AddEmployeeWindow();
+            addEmployeeWindow.ShowDialog();
+
+            if (addEmployeeWindow.DialogResult.HasValue && addEmployeeWindow.DialogResult.Value)
+            {
+                // Добавляем нового сотрудника в список и обновляем отображение
+            }
+            DataRefresh();
         }
     }
 }
