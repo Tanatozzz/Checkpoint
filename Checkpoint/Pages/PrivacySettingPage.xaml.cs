@@ -17,6 +17,7 @@ using Checkpoint.Singletons;
 using Checkpoint.API;
 using Checkpoint.Models;
 using Checkpoint.Windows;
+using Checkpoint.Classes;
 
 namespace Checkpoint.Pages
 {
@@ -25,30 +26,17 @@ namespace Checkpoint.Pages
     /// </summary>
     public partial class PrivacySettingPage : Page
     {
+        UpdateData up = new UpdateData();
         public PrivacySettingPage()
         {
             InitializeComponent();
+            Refresh();
+        }
+        private async void Refresh()
+        {
+            up.Update();
             RoleLV.ItemsSource = AllRoleSingleton.Instance.Roles;
             EmployeeLV.ItemsSource = AllEmployeesSingleton.Instance.Employees;
-        }
-        private void RoleLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedRole = RoleLV.SelectedItem as Role;
-            if (selectedRole != null)
-            {
-                var accessWindow = new AccessWindow(selectedRole);
-                accessWindow.ShowDialog();
-            }
-        }
-
-        private void EmployeeLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedEmployee = EmployeeLV.SelectedItem as Employee;
-            if (selectedEmployee != null)
-            {
-                var employeeAccessWindow = new AccessWindow(selectedEmployee);
-                employeeAccessWindow.ShowDialog();
-            }
         }
 
         private void ChangeAccessButton_Click(object sender, RoutedEventArgs e)
@@ -58,6 +46,7 @@ namespace Checkpoint.Pages
             {
                 var accessWindow = new AccessWindow(role);
                 accessWindow.ShowDialog();
+                Refresh();
             }
         }
 
@@ -68,6 +57,7 @@ namespace Checkpoint.Pages
             {
                 var accessWindow = new AccessWindow(employee);
                 accessWindow.ShowDialog();
+                Refresh();
             }
         }
     }

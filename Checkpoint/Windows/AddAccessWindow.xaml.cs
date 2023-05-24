@@ -33,7 +33,7 @@ namespace Checkpoint.Windows
 
         private async void LoadCheckpoints()
         {
-            up.Update();
+            await up.Update();
             CheckpointListView.ItemsSource = AllCheckpointsSingleton.Instance.Checkpoints;
         }
 
@@ -64,6 +64,7 @@ namespace Checkpoint.Windows
                 MessageBox.Show("Доступ успешно добавлен.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Закрыть окно после добавления доступа
+                await up.Update();
                 this.Close();
             }
             catch (Exception ex)

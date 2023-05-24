@@ -35,8 +35,6 @@ namespace Checkpoint.Windows
             timer.Tick += Timer_Tick;
             timer.Start();
             UpdateTime();
-            var EmployeePagee = new EmployeePage();
-            MainFrame.Content = EmployeePagee;
         }
 
         private void Timer_Tick(object sender, EventArgs e)

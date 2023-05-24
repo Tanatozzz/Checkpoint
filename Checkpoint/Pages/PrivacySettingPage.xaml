@@ -14,7 +14,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Name="RoleLV" Grid.Column="0" Margin="10" SelectionChanged="RoleLV_SelectionChanged">
+        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Name="RoleLV" Grid.Column="0" Margin="10">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -32,7 +32,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Name="EmployeeLV" Grid.Column="1" Margin="10" SelectionChanged="EmployeeLV_SelectionChanged">
+        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Name="EmployeeLV" Grid.Column="1" Margin="10">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -51,8 +51,6 @@
                         <TextBlock Grid.Column="3" Text="{Binding LastName}" Margin="5"/>
                         <TextBlock Grid.Column="4" Text="{Binding RoleTitle}" Margin="5"/>
                         <Button Name="ChangeAccessEmployee" Grid.Column="5" Width="80" Height="30" Content="Изменить" Click="ChangeAccessEmployee_Click"/>
-
-
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

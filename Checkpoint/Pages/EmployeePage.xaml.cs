@@ -23,10 +23,15 @@ namespace Checkpoint.Pages
 {
     public partial class EmployeePage : Page
     {
+        UpdateData updateData = new UpdateData();
         public EmployeePage()
         {
             InitializeComponent();
-            UpdateData updateData = new UpdateData();
+            DataRefresh();
+        }
+
+        private void DataRefresh()
+        {
             var allEmployees = AllEmployeesSingleton.Instance.Employees;
             var currentEmployee = EmployeeSingleton.Instance.Employee;
 
@@ -34,16 +39,9 @@ namespace Checkpoint.Pages
             {
                 employee.IsCurrentEmployee = (employee.ID == currentEmployee.ID);
             }
-
-            DataRefresh();
-        }
-
-        private async void DataRefresh()
-        {
-            var allEmployees = AllEmployeesSingleton.Instance.Employees;
             EmployeeLV.ItemsSource = allEmployees;
         }
-        private void AddEmployee_Click(object sender, RoutedEventArgs e)
+        private async void AddEmployee_Click(object sender, RoutedEventArgs e)
         {
             var addEmployeeWindow = new AddEmployeeWindow();
             addEmployeeWindow.ShowDialog();
@@ -52,7 +50,33 @@ namespace Checkpoint.Pages
             {
                 // Добавляем нового сотрудника в список и обновляем отображение
             }
+            await updateData.Update();
+            DataRefresh();
+        }
+
+        private async void EmployeeListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListView listView && listView.SelectedItem is Employee selectedEmployee)
+            {
+                var editEmployeeWindow = new AddEmployeeWindow(selectedEmployee, true);
+                editEmployeeWindow.AddButton.Content = "Изменить";
+                if(selectedEmployee.ID == EmployeeSingleton.Instance.Employee.ID)
+                {
+                    MessageBox.Show("Ошибка, нельзя изменять свой профиль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                editEmployeeWindow.ShowDialog();
+
+                if (editEmployeeWindow.DialogResult.HasValue && editEmployeeWindow.DialogResult.Value)
+                {
+                    HttpQuery httpmanager = new HttpQuery();
+                    // Обновите данные сотрудника после редактирования
+                    await httpmanager.UpdateEmployee(selectedEmployee);
+                }
+            }
+            await updateData.Update();
             DataRefresh();
         }
     }
+
 }

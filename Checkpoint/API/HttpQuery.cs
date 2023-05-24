@@ -186,7 +186,7 @@ namespace Checkpoint.API
         }
         public async Task DeleteCheckpointAdditionalAccess(int IDAdditionalAccess, int IDCheckpoint)
         {
-            var url = $"DeleteCheckpointAdditionalAccess?IDRole={IDAdditionalAccess}&IDCheckpoint={IDCheckpoint}";
+            var url = $"DeleteCheckpointAdditionalAccess?IDAdditionalAccess={IDAdditionalAccess}&IDCheckpoint={IDCheckpoint}";
 
             var response = await _httpClient.DeleteAsync(url);
 

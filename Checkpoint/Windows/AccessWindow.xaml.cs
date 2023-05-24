@@ -34,7 +34,7 @@ namespace Checkpoint.Windows
         }
 
         private async void UpdateData() {
-            up.Update();
+            await up.Update();
             if (target is Role role)
             {
                 var checkpointRoles = AllCheckpointRoleSingleton.Instance.CheckpointRoles.Where(i => i.IDRole == role.ID);
@@ -49,29 +49,36 @@ namespace Checkpoint.Windows
         private async void DeleteAccessButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            CheckpointRole checkpointRole = (CheckpointRole)button.Tag;
-            int checkpointID = checkpointRole.IDCheckpoint;
             HttpQuery httpmanager = new HttpQuery();
-            if (target is Role role)
+            if (target is Employee employee)
             {
-                await httpmanager.DeleteCheckpointRole(role.ID, checkpointID);
-            }
-            else if (target is Employee employee)
-            {
+                CheckpointAdditionalAccess checkpointRole = (CheckpointAdditionalAccess)button.Tag;
+                int checkpointID = checkpointRole.IDCheckpoint;
                 await httpmanager.DeleteCheckpointAdditionalAccess(employee.IDAdditionAccess, checkpointID);
+                UpdateData();
+            }
+            else if (target is Role role)
+            {
+                CheckpointRole checkpointRole = (CheckpointRole)button.Tag;
+                int checkpointID = checkpointRole.IDCheckpoint;
+                await httpmanager.DeleteCheckpointRole(role.ID, checkpointID);
+                UpdateData();
             }
             else
             {
                 // Обработка неподдерживаемого типа
                 throw new ArgumentException("Неподдерживаемый тип объекта");
             }
+
+            // Вызываем метод обновления данных
             UpdateData();
         }
 
-        private void AddAccessButton_Click(object sender, RoutedEventArgs e)
+        private async void AddAccessButton_Click(object sender, RoutedEventArgs e)
         {
             var addaccessWindow = new AddAccessWindow(target);
             addaccessWindow.ShowDialog();
+            UpdateData();
             // Логика добавления нового доступа
         }
     }

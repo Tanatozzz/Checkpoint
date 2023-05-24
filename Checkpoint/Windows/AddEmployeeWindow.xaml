@@ -61,6 +61,6 @@
 
         <!-- Добавьте сюда элементы управления и привязки данных для остальных свойств класса Employee -->
 
-        <Button Content="Добавить" Grid.Row="10" HorizontalAlignment="Center" Margin="10" Click="AddButton_Click" />
+        <Button Name="AddButton" Content="Добавить" Grid.Row="10" HorizontalAlignment="Center" Margin="10" Click="AddButton_Click" />
     </Grid>
 </Window>
