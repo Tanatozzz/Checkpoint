@@ -65,6 +65,9 @@
                                 </Image.Source>
                             </Image>-->
 
+                            <Button Name="DeleteButton" Content="X" Grid.Column="2" Width="25"
+                                    VerticalAlignment="Top" Margin="0 5 5 0" 
+                                    Click="DeleteButton_Click_1"/>
                             <TextBlock
                     Text="ID: "
                     FontSize="18"

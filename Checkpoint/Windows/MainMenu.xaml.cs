@@ -67,19 +67,6 @@ namespace Checkpoint.Windows
             this.WindowState = WindowState.Minimized;
         }
 
-        //private void ButtonMaximazed_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (this.WindowState != WindowState.Maximized)
-        //    {
-        //        this.WindowState = WindowState.Maximized;
-        //        this.ResizeMode = ResizeMode.NoResize;
-        //    }
-        //    else
-        //    {
-        //        this.WindowState = WindowState.Normal;
-        //    }
-        //}
-
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -91,6 +78,7 @@ namespace Checkpoint.Windows
 
             if (dataLoaded)
             {
+                tbSearch.Text = "";
                 var page = new EmployeePage();
 
                 MainFrame.Content = page;
@@ -108,6 +96,7 @@ namespace Checkpoint.Windows
 
             if (dataLoaded)
             {
+                tbSearch.Text = "";
                 var page = new OfficePage();
 
                 MainFrame.Content = page;
@@ -125,6 +114,7 @@ namespace Checkpoint.Windows
 
             if (dataLoaded)
             {
+                tbSearch.Text = "";
                 var page = new CheckpointPage();
 
                 MainFrame.Content = page;
@@ -142,6 +132,7 @@ namespace Checkpoint.Windows
 
             if (dataLoaded)
             {
+                tbSearch.Text = "";
                 var page = new PrivacySettingPage();
 
                 MainFrame.Content = page;
@@ -174,6 +165,21 @@ namespace Checkpoint.Windows
 
             // Отображаем всплывающее оповещение с данными из синглтона
             MessageBox.Show(message, "Employee Profile", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Получение активной страницы из MainFrame
+            var activePage = MainFrame.Content as IListViewSearchable;
+
+            if (activePage != null)
+            {
+                // Получение введенного текста из TextBox
+                string searchText = tbSearch.Text;
+
+                // Вызов метода SearchListView на активной странице
+                activePage.SearchListView(searchText);
+            }
         }
     }
 }

@@ -359,5 +359,63 @@ namespace Checkpoint.API
                 return false;
             }
         }
+        public async Task<bool> UpdateCheckpoint(Checkpointt updatedCheckpoint)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync($"UpdateCheckpoint/{updatedCheckpoint.ID}", updatedCheckpoint);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Данные о контрольной точке успешно обновлены
+                    return true;
+                }
+                else if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    // Контрольная точка не найдена
+                    Console.WriteLine("Контрольная точка не найдена.");
+                    return false;
+                }
+                else
+                {
+                    // Обработка ошибки при обновлении данных о контрольной точке
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Ошибка при обновлении данных о контрольной точке: {errorMessage}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Произошла ошибка при отправке запроса на сервер. Обратитесь к администратору системы.");
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+        public async Task<bool> AddCheckpoint(Checkpointt newCheckpoint)
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync("AddCheckpoint", newCheckpoint);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Проход успешно добавлен
+                    return true;
+                }
+                else
+                {
+                    // Обработка ошибки при добавлении прохода
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Ошибка при добавлении прохода: {errorMessage}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Произошла ошибка при отправке запроса на сервер. Обратитесь к администратору системы.");
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
     }
 }

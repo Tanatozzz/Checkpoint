@@ -69,10 +69,8 @@
             <TextBox x:Name="tbSearch" Width="800" Height="50" 
                      Margin="30 0 0 0" Text="Введите запрос"
                      Foreground="#3AB19B" Style="{StaticResource SearchTextBoxStyle}"
-                     TextAlignment="Left"/>
-            <Button Content="Найти" Height="50" Width="170" Margin="30 0 50 0" Style="{StaticResource mainButton}"
-                     />
-            <ListView x:Name="resultsListView" />
+                     TextAlignment="Left" TextChanged="tbSearch_TextChanged"/>
+            <Image Source="/Images/search.png" Height="50" Margin="40 0 0 0"/>
         </StackPanel>
 
         <Button Name="btnProfile" Width="50" Height="50" Grid.Row="1" Grid.Column="3" BorderThickness="0"

@@ -162,6 +162,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\AddNewCheckpoint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -183,6 +187,7 @@
     <Compile Include="Models\CheckpointWithOfficeName.cs" />
     <Compile Include="Models\EmployeeWithRoleName.cs" />
     <Compile Include="Models\HttpEmployee.cs" />
+    <Compile Include="Models\IListViewSearchable.cs" />
     <Compile Include="Models\OfficeWithCityName.cs" />
     <Compile Include="Models\RightsList.cs" />
     <Compile Include="Pages\CheckpointPage.xaml.cs">
@@ -214,6 +219,9 @@
     </Compile>
     <Compile Include="Windows\AddEmployeeWindow.xaml.cs">
       <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddNewCheckpoint.xaml.cs">
+      <DependentUpon>AddNewCheckpoint.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
@@ -256,11 +264,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Email.png" />
-    <Resource Include="Images\facebook.png" />
-    <Resource Include="Images\google.png" />
-    <Resource Include="Images\linkedin.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\search.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\UserPic.png" />
   </ItemGroup>

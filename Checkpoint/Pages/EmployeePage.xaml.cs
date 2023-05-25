@@ -18,10 +18,11 @@ using Checkpoint.Converters;
 using Checkpoint.API;
 using Checkpoint.Windows;
 using Checkpoint.Classes;
+using Checkpoint.Models;
 
 namespace Checkpoint.Pages
 {
-    public partial class EmployeePage : Page
+    public partial class EmployeePage : Page, IListViewSearchable
     {
         UpdateData updateData = new UpdateData();
         public EmployeePage()
@@ -29,7 +30,18 @@ namespace Checkpoint.Pages
             InitializeComponent();
             DataRefresh();
         }
+        public void SearchListView(string searchText)
+        {
+            // Фильтрация списка сотрудников по введенному тексту
+            var filteredEmployees = AllEmployeesSingleton.Instance.Employees.Where(emp =>
+                emp.FirstName.Contains(searchText) ||
+                emp.LastName.Contains(searchText) ||
+                emp.Patronomyc.Contains(searchText) ||
+                emp.Login.Contains(searchText));
 
+            // Обновление источника данных для ListView
+            EmployeeLV.ItemsSource = filteredEmployees;
+        }
         private void DataRefresh()
         {
             var allEmployees = AllEmployeesSingleton.Instance.Employees;
@@ -45,11 +57,6 @@ namespace Checkpoint.Pages
         {
             var addEmployeeWindow = new AddEmployeeWindow();
             addEmployeeWindow.ShowDialog();
-
-            if (addEmployeeWindow.DialogResult.HasValue && addEmployeeWindow.DialogResult.Value)
-            {
-                // Добавляем нового сотрудника в список и обновляем отображение
-            }
             await updateData.Update();
             DataRefresh();
         }
@@ -70,12 +77,41 @@ namespace Checkpoint.Pages
                 if (editEmployeeWindow.DialogResult.HasValue && editEmployeeWindow.DialogResult.Value)
                 {
                     HttpQuery httpmanager = new HttpQuery();
-                    // Обновите данные сотрудника после редактирования
                     await httpmanager.UpdateEmployee(selectedEmployee);
                 }
             }
             await updateData.Update();
             DataRefresh();
+        }
+        private async void DeleteButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button deleteButton && deleteButton.DataContext is Employee selectedEmployee)
+            {
+                if (selectedEmployee.ID == EmployeeSingleton.Instance.Employee.ID)
+                {
+                    MessageBox.Show("Ошибка, нельзя удалить свой профиль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите удалить этого сотрудника?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        HttpQuery httpManager = new HttpQuery();
+                        await httpManager.DeleteEmployee(selectedEmployee.ID);
+                        DataRefresh();
+                        MessageBox.Show("Сотрудник удален", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
     }
 
