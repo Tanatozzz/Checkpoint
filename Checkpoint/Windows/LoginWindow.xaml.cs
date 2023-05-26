@@ -65,6 +65,11 @@ namespace Checkpoint
 
             if (loggedInEmployee != null)
             {
+                if (loggedInEmployee.IDRole != 1) // ID 1 соответствует администраторской должности
+                {
+                    MessageBox.Show("Недостаточно прав для доступа. Требуется администраторская должность.");
+                    return;
+                }
                 // Открываем главное окно
                 EmployeeSingleton.Instance.Employee = loggedInEmployee;
                 var mainWindow = new MainMenu();
