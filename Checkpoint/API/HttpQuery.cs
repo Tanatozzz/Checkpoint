@@ -21,7 +21,7 @@ namespace Checkpoint.API
         public HttpQuery()
         {
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("https://localhost:7213/api/DataBase/");
+            _httpClient.BaseAddress = new Uri("http://94.228.124.99:12345/api/DataBase/");
         }
 
         public async Task<HttpEmployee> Login(string username, string password)
@@ -49,8 +49,7 @@ namespace Checkpoint.API
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Произошла ошибка отправки запроса на сервер(Login Query). Обратитесь к администратору системы.", ex.ToString());
-                return null;
+                throw new Exception($"Ошибка при выполнении запроса: {ex}");
             }
         }
         public async Task<List<EmployeeWithRoleName>> GetAllEmployees()

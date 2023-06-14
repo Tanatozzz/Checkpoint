@@ -42,8 +42,9 @@ namespace Checkpoint.Pages
             // Обновление источника данных для ListView
             EmployeeLV.ItemsSource = filteredEmployees;
         }
-        private void DataRefresh()
+        private async void DataRefresh()
         {
+            await updateData.Update();
             var allEmployees = AllEmployeesSingleton.Instance.Employees;
             var currentEmployee = EmployeeSingleton.Instance.Employee;
 
@@ -53,11 +54,10 @@ namespace Checkpoint.Pages
             }
             EmployeeLV.ItemsSource = allEmployees;
         }
-        private async void AddEmployee_Click(object sender, RoutedEventArgs e)
+        private void AddEmployee_Click(object sender, RoutedEventArgs e)
         {
             var addEmployeeWindow = new AddEmployeeWindow();
             addEmployeeWindow.ShowDialog();
-            await updateData.Update();
             DataRefresh();
         }
 
@@ -80,7 +80,6 @@ namespace Checkpoint.Pages
                     await httpmanager.UpdateEmployee(selectedEmployee);
                 }
             }
-            await updateData.Update();
             DataRefresh();
         }
         private async void DeleteButton_Click_1(object sender, RoutedEventArgs e)
@@ -99,7 +98,6 @@ namespace Checkpoint.Pages
                     {
                         HttpQuery httpManager = new HttpQuery();
                         await httpManager.DeleteEmployee(selectedEmployee.ID);
-                        DataRefresh();
                         MessageBox.Show("Сотрудник удален", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
@@ -112,6 +110,7 @@ namespace Checkpoint.Pages
                     return;
                 }
             }
+            DataRefresh();
         }
     }
 
